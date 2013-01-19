@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        body {
+            font-family: Verdana;
+            font-size: 18pt;
+            margin: 20px;
+        }
+
+        div {
+            display:inline;
+        }
+
+        #word {
+            border: black 1px solid;
+            background-color: #ffebcd;
+            text-align: center;
+            display: none;
+            padding: 10px;
+            margin: 20px;
+        }
+    </style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+    <script>
+        $("#word").ready(function() {
+            $("#word").show('slow');
+        });
+    </script>
+</head>
+<body>
+    <div id="word">
+        Alinguq
+    </div>
+</body>
+</html>

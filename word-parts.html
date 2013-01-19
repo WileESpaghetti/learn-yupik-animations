@@ -12,14 +12,19 @@
         div {
             display:inline;
         }
-
-        #word {
+        .wordPart {
             border: black 1px solid;
             background-color: #ffebcd;
             text-align: center;
-            display: none;
             padding: 10px;
             margin: 20px;
+        }
+
+        #word {
+            display: none;
+        }
+        #expanded {
+            border: red 1px solid;
         }
     </style>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
@@ -30,8 +35,16 @@
     </script>
 </head>
 <body>
-    <div id="word">
+    <div id="word" class="wordPart">
         Alinguq
+    </div>
+    <div id="expanded">
+        <div id="stem" class="wordPart">
+            Alinge
+        </div>
+        <div id="postbase1" class="wordPart" >
+            +&apos;(g/t)uq
+        </div>
     </div>
 </body>
 </html>

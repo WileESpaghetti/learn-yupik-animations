@@ -22,7 +22,7 @@
         }
 
         #word {
-            display: none;
+            display:inline;
         }
         #expanded {
             border: red 1px solid;
@@ -30,15 +30,22 @@
     </style>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
     <script>
-        $("#word").ready(function() {
-            $("#word").show('slow');
-        });
 
-        setTimeout(function(){
-            $("#expanded").ready(function(){
-                $("#expanded").children().show("slow");
+
+
+        function showPart(part)
+        {
+                part.show("slow", function() {
+                    setTimeout(function(){
+                        showPart(part.next());
+                },1000);
             });
-        }, 2000);
+        }
+        $("#word").ready(function() {
+            $("#word").toggle("slow");
+            parts = $("#expanded").children().first();
+            showPart(parts);
+        });
     </script>
 </head>
 <body>

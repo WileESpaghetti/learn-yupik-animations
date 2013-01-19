@@ -10,7 +10,7 @@
         }
 
         div {
-            display:inline;
+            display:inline-block;
         }
         .wordPart {
             border: black 1px solid;
@@ -22,15 +22,33 @@
         }
 
         #word {
-            display:inline;
+            display:inline-block;
         }
         #expanded {
             border: red 1px solid;
+        }
+
+        .container {
+            display: block;
+            background-color: #f0f8ff;
+            border:#4682b4 1px solid;
+            margin:50px;
+        }
+
+        #wordDisplay {
+        }
+
+        #controls {
+            font-size: 12pt;
         }
     </style>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
     <script>
 
+        function wordToStem() {
+            $("#word").hide("fast");
+            $("#stem").show("slow");
+        }
 
 
         function showPart(part)
@@ -41,24 +59,45 @@
                 },1000);
             });
         }
-        $("#word").ready(function() {
-            $("#word").toggle("slow");
+
+        function splitWord() {
+            wordToStem();
+
             parts = $("#expanded").children().first();
-            showPart(parts);
+            setTimeout(function(){showPart(parts)},1000);
+        }
+
+        $("#word").ready(function() {
+            //$("#word").toggle("slow");
+            $("#expand").click(function(){splitWord()});
         });
     </script>
 </head>
 <body>
-    <div id="word" class="wordPart">
-        Alinguq
-    </div>
-    <div id="expanded">
+    <div id="wordDisplay" class="container">
+        <div id="word" class="wordPart">
+           neryullrunrituq
+        </div>
         <div id="stem" class="wordPart">
-            Alinge
+           nere
         </div>
-        <div id="postbase1" class="wordPart" >
-            +&apos;(g/t)uq
+        <div id="expanded">
+            <div id="postbase2" class="wordPart">
+               @~+yug
+            </div>
+            <div id="postbase3" class="wordPart">
+                -llru
+            </div>
+            <div id="postbase4" class="wordPart">
+                -nrite
+            </div>
+            <div id="postbase1" class="wordPart" >
+                +&apos;(g/t)uq
+            </div>
         </div>
+    </div>
+    <div id="controls" class="container">
+        <a href="#" id="expand">Expand</a>
     </div>
 </body>
 </html>

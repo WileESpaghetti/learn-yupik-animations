@@ -18,6 +18,7 @@
             text-align: center;
             padding: 10px;
             margin: 20px;
+            display: none;
         }
 
         #word {
@@ -32,6 +33,12 @@
         $("#word").ready(function() {
             $("#word").show('slow');
         });
+
+        setTimeout(function(){
+            $("#expanded").ready(function(){
+                $("#expanded").children().show("slow");
+            });
+        }, 2000);
     </script>
 </head>
 <body>

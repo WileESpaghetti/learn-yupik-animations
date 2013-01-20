@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title></title>
+    <style>
+        body {
+            font-family: Verdana;
+            font-size: 18pt;
+            margin: 20px;
+            text-align:center;
+        }
+
+        div {
+            display:inline-block;
+        }
+
+        .wordPart {
+            border: black 1px solid;
+            background-color: #ffebcd;
+            text-align: center;
+            padding: 10px;
+            margin: 20px;
+        }
+
+        #word {
+            display:inline-block;
+        }
+        #postbases {
+            border: green 1px solid;
+            background-color: #9acd32;
+        }
+
+        .container {
+            display: block;
+            background-color: #f0f8ff;
+            border:#4682b4 1px solid;
+            margin:50px;
+            text-align:left;
+        }
+
+        #wordDisplay {
+        }
+
+        #controls {
+            font-size: 12pt;
+        }
+    </style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+    <script>
+        function showRhythmicLength(syl) {
+            rl = 500;
+            syl.css('background-color','#f0e68c');
+            syl.prev().css('background-color','#ffebcd');
+            syl.prev().css('font-weight','normal');
+            syl.prev().css('font-size','18pt');
+            if (syl.hasClass("hasLength")) {
+                syl.css('font-size','24pt');
+                syl.css('font-weight','bolder');
+                rl=1000
+            }
+            setTimeout(function(){
+                if (syl.is('#end')) {
+                    $('#wordDisplay').children().last().css('background-color','#ffebcd');
+                } else {
+                    showRhythmicLength(syl.next());
+                }
+            },rl);
+        }
+
+        $('#controls').ready(function(){
+            $('#showLength').click(function(){
+                syl = $('#wordDisplay').children().first();
+                showRhythmicLength(syl);
+                $('#wordDisplay').children().last().css('background-color','#ffebcd');
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Rhythmic Vowel Length</h1>
+    <h2>pissuqatalliniluni</h2>
+    <div id="wordDisplay" class="container">
+        <div class="wordPart">
+            <p>pi</p>
+        </div>
+        <div class="wordPart hasLength">
+            <p>ssu</p>
+        </div>
+        <div class="wordPart">
+            <p>qa</p>
+        </div>
+        <div class="wordPart hasLength">
+            <p>ta</p>
+        </div>
+        <div class="wordPart">
+            <p>lli</p>
+        </div>
+        <div class="wordPart hasLength">
+            <p>ni</p>
+        </div>
+        <div class="wordPart">
+            <p>lu</p>
+        </div>
+        <div class="wordPart" id="end">
+            <p>ni</p>
+        </div>
+    </div>
+    <div id="controls" class="container">
+        <a href="#" id="showLength">Show Rythmic Length</a>
+    </div>
+</body>
+</html>

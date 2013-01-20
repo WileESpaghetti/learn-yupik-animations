@@ -7,11 +7,13 @@
             font-family: Verdana;
             font-size: 18pt;
             margin: 20px;
+            text-align:center;
         }
 
         div {
             display:inline-block;
         }
+
         .wordPart {
             border: black 1px solid;
             background-color: #ffebcd;
@@ -24,8 +26,9 @@
         #word {
             display:inline-block;
         }
-        #expanded {
-            border: red 1px solid;
+        #postbases {
+            border: green 1px solid;
+            background-color: #9acd32;
         }
 
         .container {
@@ -33,6 +36,7 @@
             background-color: #f0f8ff;
             border:#4682b4 1px solid;
             margin:50px;
+            text-align:left;
         }
 
         #wordDisplay {
@@ -40,6 +44,12 @@
 
         #controls {
             font-size: 12pt;
+        }
+
+        #ending {
+            background-color: #e9967a;
+            border: #8b0000 1px solid;
+            display:none;
         }
     </style>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
@@ -55,7 +65,11 @@
         {
                 part.show("slow", function() {
                     setTimeout(function(){
-                        showPart(part.next());
+                        if (part.is("#ending")) {
+                            showPart(part.children().first());
+                        } else {
+                            showPart(part.next());
+                        }
                 },1000);
             });
         }
@@ -63,7 +77,7 @@
         function splitWord() {
             wordToStem();
 
-            parts = $("#expanded").children().first();
+            parts = $("#postbases").children().first();
             setTimeout(function(){showPart(parts)},1000);
         }
 
@@ -74,6 +88,7 @@
     </script>
 </head>
 <body>
+    <h1>Parts of a Yup'ik Word</h1>
     <div id="wordDisplay" class="container">
         <div id="word" class="wordPart">
            neryullrunrituq
@@ -81,18 +96,20 @@
         <div id="stem" class="wordPart">
            nere
         </div>
-        <div id="expanded">
-            <div id="postbase2" class="wordPart">
+        <div id="postbases">
+            <div id="postbase1" class="wordPart">
                @~+yug
             </div>
-            <div id="postbase3" class="wordPart">
+            <div id="postbase2" class="wordPart">
                 -llru
             </div>
-            <div id="postbase4" class="wordPart">
+            <div id="postbase3" class="wordPart">
                 -nrite
             </div>
-            <div id="postbase1" class="wordPart" >
-                +&apos;(g/t)uq
+            <div id="ending">
+                <div id="postbase4" class="wordPart" >
+                    +&apos;(g/t)uq
+                </div>
             </div>
         </div>
     </div>

@@ -29,6 +29,7 @@
         #postbases {
             border: green 1px solid;
             background-color: #9acd32;
+            display: none;
         }
 
         .container {
@@ -50,6 +51,7 @@
             background-color: #e9967a;
             border: #8b0000 1px solid;
             display:none;
+            margin:10px;
         }
     </style>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
@@ -63,13 +65,13 @@
 
         function showPart(part)
         {
+                if (part.is("#ending")) {
+                    part.children().first().css('display','inline-block');
+                    part.children().first().css('margin','10px 10px 10px 10px');
+                }
                 part.show("slow", function() {
                     setTimeout(function(){
-                        if (part.is("#ending")) {
-                            showPart(part.children().first());
-                        } else {
-                            showPart(part.next());
-                        }
+                        showPart(part.next());
                 },1000);
             });
         }
@@ -77,6 +79,7 @@
         function splitWord() {
             wordToStem();
 
+            $('#postbases').css('display','inline-block');
             parts = $("#postbases").children().first();
             setTimeout(function(){showPart(parts)},1000);
         }

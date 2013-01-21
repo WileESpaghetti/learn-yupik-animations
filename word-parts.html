@@ -14,6 +14,13 @@
             display:inline-block;
         }
 
+        p {
+            font-size: 10pt;
+            text-align: center;
+            font-weight: bold;
+            display:none;
+        }
+
         .wordPart {
             border: black 1px solid;
             background-color: #ffebcd;
@@ -21,6 +28,13 @@
             padding: 10px;
             margin: 20px;
             display: none;
+            vertical-align: top;
+        }
+
+        #stemContainer {
+            background-color: #ffd700;
+            border: #b8860b 1px solid;
+            vertical-align: top;
         }
 
         #word {
@@ -41,6 +55,7 @@
         }
 
         #wordDisplay {
+            padding:10px;
         }
 
         #controls {
@@ -96,8 +111,11 @@
         <div id="word" class="wordPart">
            neryullrunrituq
         </div>
-        <div id="stem" class="wordPart">
-           nere
+        <div id="stemContainer">
+            <div id="stem" class="wordPart">
+                nere
+            </div>
+            <p>Stem</p>
         </div>
         <div id="postbases">
             <div id="postbase1" class="wordPart">
@@ -113,7 +131,9 @@
                 <div id="postbase4" class="wordPart" >
                     +&apos;(g/t)uq
                 </div>
+                <p>Ending</p>
             </div>
+            <p>Postbases</p>
         </div>
     </div>
     <div id="controls" class="container">

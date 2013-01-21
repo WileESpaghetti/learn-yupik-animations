@@ -21,6 +21,13 @@
             display:none;
         }
 
+        h2 {
+            text-align: center;
+            margin:0;
+            padding:0 0 10px 0;
+            font-size: 1em;
+        }
+
         .wordPart {
             border: black 1px solid;
             background-color: #ffebcd;
@@ -35,6 +42,7 @@
             background-color: #ffd700;
             border: #b8860b 1px solid;
             vertical-align: top;
+            display:none;
         }
 
         #word {
@@ -60,6 +68,7 @@
 
         #controls {
             font-size: 12pt;
+            padding: 20px;
         }
 
         #ending {
@@ -74,29 +83,37 @@
 
         function wordToStem() {
             $("#word").hide("fast");
-            $("#stem").show("slow");
+            $("#stem").css('display', 'inline-block');
+            $('#stemContainer').show('slow');
         }
 
 
         function showPart(part)
         {
-                if (part.is("#ending")) {
-                    part.children().first().css('display','inline-block');
-                    part.children().first().css('margin','10px 10px 10px 10px');
-                }
+            if (part.is("#ending")) {
+                part.children().first().css('display','inline-block');
+                part.children().first().css('margin','10px 10px 10px 10px');
+                part.show("slow")
+                setTimeout(function(){$('p').slideDown('slow')},1500);
+            } else {
                 part.show("slow", function() {
                     setTimeout(function(){
                         showPart(part.next());
-                },1000);
-            });
+                    },1000);
+                });
+            }
         }
 
         function splitWord() {
             wordToStem();
 
-            $('#postbases').css('display','inline-block');
             parts = $("#postbases").children().first();
-            setTimeout(function(){showPart(parts)},1000);
+            parts.css('display','inline-block');
+
+            setTimeout(function(){
+                $('#postbases').show('slow');
+                setTimeout(function(){showPart(parts.next())},1000);
+            },1000);
         }
 
         $("#word").ready(function() {
@@ -108,6 +125,7 @@
 <body>
     <h1>Parts of a Yup'ik Word</h1>
     <div id="wordDisplay" class="container">
+        <h2>Word</h2>
         <div id="word" class="wordPart">
            neryullrunrituq
         </div>

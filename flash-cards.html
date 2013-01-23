@@ -79,8 +79,19 @@
         }
 
         $('#flip').ready(function(){
+
             $('#flip').click(function(){
                 flip('#card_front','#card_back');
+            });
+
+            $('#next').ready(function(){
+                $('#stack').cycle({
+                    fx:     'shuffle',
+                    easing: 'easeOutBack',
+                    delay:  -4000,
+                    timeout: 0,
+                    next: '#next'
+                });
             });
         });
         /*$('#flip').ready(function(){
@@ -103,14 +114,19 @@
 <body>
     <h1>Yup'ik Flash Cards</h1>
     <div id="stack">
-        <div id="card_front" class='card'>
+        <div id="cardTmp" class="card front">
+            Temp
+        </div>
+        <div id="cardTmp2" class="card front">
+            Temp2
+        </div>
+    </div>
+    <div id="cardBuffer">
+        <div id="card1_front" class='card'>
             <p>Front</p>
         </div>
-        <div id="card_back" class="card">
+        <div id="card2_front" class="card">
             <p>Back</p>
-        </div>
-        <div id="cardTmp" class="card stackTop front">
-            Temp
         </div>
     </div>
     <div id="cardStack">
@@ -131,6 +147,7 @@
     </div>
     <div id="controls">
         <a href="#" id="flip">flip</a>
+        <a href="#" id="next">next</a>
     </div>
 </body>
 </html>

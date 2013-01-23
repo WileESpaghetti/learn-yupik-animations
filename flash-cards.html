@@ -52,28 +52,69 @@
             easing: 'easeOutBack',
             delay:  -4000
         });*/
+        function loadCard(fromId, toId) {
+            $(toId).empty();
+            $(toId).append(fromId.html());
+        }
+
+        function flip() {
+            //console.log('in flip');
+            //console.log($(front))
+            bacon = '';
+            if ($('#cardTmp').hasClass('front')) {
+                bacon = $('#card_back');
+            } else {
+                bacon = $('#card_front');
+            }
+            $('#cardTmp').flippy({
+                content: bacon,
+                direction:"TOP",
+                duration:"350",
+                onFinish: function(){
+                    //$('#answer1').addClass("card");
+                    $('#cardTmp').toggleClass('front');
+                    $('#cardTmp').toggleClass('back');
+                }
+            });
+        }
 
         $('#flip').ready(function(){
+            $('#flip').click(function(){
+                flip('#card_front','#card_back');
+            });
+        });
+        /*$('#flip').ready(function(){
             $('#flip').click(function(){
                 $('#card1').flippy({
                     content:$('#card1_answer'),
                     direction:"TOP",
                     duration:"350",
                     onStart: function(){
-                        console.log('flip');
+                        //console.log(content);
                     },
                     onFinish: function(){
                         //$('#answer1').addClass("card");
                     }
                 });
             });
-        });
+        });*/
     </script>
 </head>
 <body>
     <h1>Yup'ik Flash Cards</h1>
+    <div id="stack">
+        <div id="card_front" class='card'>
+            <p>Front</p>
+        </div>
+        <div id="card_back" class="card">
+            <p>Back</p>
+        </div>
+        <div id="cardTmp" class="card stackTop front">
+            Temp
+        </div>
+    </div>
     <div id="cardStack">
-        <div id="card1" class="card stackTop">
+        <div id="card1" class="card">
             <h2>arnaq</h2>
         </div>
         <div id="card2" class="card">

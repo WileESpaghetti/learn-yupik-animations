@@ -53,44 +53,54 @@
             delay:  -4000
         });*/
         function loadCard(fromId, toId) {
-            $(toId).empty();
-            $(toId).append(fromId.html());
+            toId.empty();
+            toId.append(fromId.html());
         }
 
-        function flip() {
+        function flip(frontId, backId) {
             //console.log('in flip');
             //console.log($(front))
+            console.log($(frontId).hasClass('front'));
+            //console.log(backId);
             bacon = '';
-            if ($('#cardTmp').hasClass('front')) {
-                bacon = $('#card_back');
+            if ($(frontId).hasClass('front')) {
+                bacon = $(backId);
+                console.log('front')
             } else {
-                bacon = $('#card_front');
+                bacon = $('#tmptmp');
             }
-            $('#cardTmp').flippy({
+            $(frontId).flippy({
                 content: bacon,
                 direction:"TOP",
                 duration:"350",
                 onFinish: function(){
                     //$('#answer1').addClass("card");
-                    $('#cardTmp').toggleClass('front');
-                    $('#cardTmp').toggleClass('back');
+                    $(frontId).toggleClass('front');
+                    $(frontId).toggleClass('back');
                 }
             });
         }
 
         $('#flip').ready(function(){
 
-            $('#flip').click(function(){
+            /*$('#flip').click(function(){
                 flip('#card_front','#card_back');
-            });
+            });*/
 
             $('#next').ready(function(){
-                $('#stack').cycle({
+                $('#cardStack').cycle({
                     fx:     'shuffle',
                     easing: 'easeOutBack',
                     delay:  -4000,
                     timeout: 0,
-                    next: '#next'
+                    next: '#next',
+                    after: function(){
+                        loadCard($(this),$('#tmptmp'));
+                        newFlip = $(this).attr('id');//function(a){flip($(this).attr('id'),$(this).attr('id') + '_answer')};
+                        $('#flip').click(function(){
+                            flip('#' + newFlip, '#' + newFlip + '_answer');
+                        });
+                    }
                 });
             });
         });
@@ -113,6 +123,7 @@
 </head>
 <body>
     <h1>Yup'ik Flash Cards</h1>
+    <div id="tmptmp" class="card"></div>
     <div id="stack">
         <div id="cardTmp" class="card front">
             Temp
@@ -130,10 +141,10 @@
         </div>
     </div>
     <div id="cardStack">
-        <div id="card1" class="card">
+        <div id="card1" class="card front">
             <h2>arnaq</h2>
         </div>
-        <div id="card2" class="card">
+        <div id="card2" class="card front">
             <h2>angun</h2>
         </div>
     </div>

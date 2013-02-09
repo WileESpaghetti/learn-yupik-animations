@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title></title>
+    <style>
+        body {
+            font-family: Verdana;
+            font-size: 18pt;
+            margin: 20px;
+            text-align:center;
+        }
+
+        div {
+            display:inline-block;
+        }
+
+        .wordPart {
+            border: black 1px solid;
+            background-color: #ffebcd;
+            text-align: center;
+            padding: 10px;
+            margin: 20px;
+        }
+
+        #word {
+            display:inline-block;
+        }
+
+        .container {
+            display: block;
+            background-color: #f0f8ff;
+            border:#4682b4 1px solid;
+            margin:50px;
+            text-align:left;
+        }
+
+        #wordDisplay {
+            text-align:center;
+        }
+
+        .selected {
+            font-weight: bold;
+        }
+
+        .normal {
+            font-weight: normal;
+        }
+
+        .letter {
+            cursor: pointer;
+            position: relative;
+        }
+    </style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.js"></script>
+    <script>
+        $('.normal').ready(function () {
+            $('.letter').click(function () {
+                $(this).toggleClass('normal');
+                $(this).toggleClass('selected');
+                //if ($(this).hasClass('selected') && ($(this).prev().hasClass('selected') || $(this).next().hasClass('selected'))) {
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Splitting Words into Syllables</h1>
+    <h2>
+    </h2>
+
+    <div id="wordDisplay" class="container">
+        <div id="word" class="wordPart">
+            <span id="letter1" class="letter normal">p</span><span id="letter2" class="letter normal">i</span><span id="letter3" class="letter normal">s</span><span id="letter4" class="letter normal">s</span><span id="letter5" class="letter normal">u</span><span id="letter6" class="letter normal">q</span><span id="letter7" class="letter normal">a</span><span id="letter8" class="letter normal">t</span><span id="letter9" class="letter normal">a</span><span id="letter10" class="letter normal">l</span><span id="letter11" class="letter normal">l</span><span id="letter12" class="letter normal">i</span><span id="letter13" class="letter normal">n</span><span id="letter14" class="letter normal">i</span><span id="letter15" class="letter normal">l</span><span id="letter16" class="letter normal">u</span><span id="letter17" class="letter normal">n</span><span id="letter18" class="letter normal">i</span>
+        </div>
+    </div>
+</body>
+</html>

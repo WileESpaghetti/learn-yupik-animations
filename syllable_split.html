@@ -57,7 +57,14 @@
             $('.letter').click(function () {
                 $(this).toggleClass('normal');
                 $(this).toggleClass('selected');
-                //if ($(this).hasClass('selected') && ($(this).prev().hasClass('selected') || $(this).next().hasClass('selected'))) {
+                if ($(this).hasClass('selected') && ($(this).prev().hasClass('selected'))) {
+                    word = $('#wordDisplay');
+                    newDiv = "<div class='wordPart'></div>";
+                    newDiv = $(newDiv);
+                    newDiv.append($(this).prevAll().get().reverse());
+                    word.prepend(newDiv);
+                    //word.append($(this).prevAll());
+                }
             });
         });
     </script>

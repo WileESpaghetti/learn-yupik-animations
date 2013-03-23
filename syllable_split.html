@@ -77,19 +77,18 @@
                     if (isPrevSelected) {
                         left = $(this).prevAll();
                         left.detach();
-
-                        //$(this).detach();
-
-                        //right = $(this).nextAll();
-                        //right.detach();
-
                         lSyl.append(left.get().reverse());
-
-                        //rSyl.append($(this));
-                        //rSyl.append(right)
-
                         curSyl.before(lSyl);
-                        //curSyl.before(rSyl);
+                    } else if (isNextSelected) {
+                        left = $(this).prevAll();
+                        left.detach();
+                        $(this).detach();
+
+                        left = left.get().reverse();
+                        console.log(left);
+                        left.push(this);
+                        lSyl.append(left);
+                        curSyl.before(lSyl);
                     }
                     //console.log($('.letter'));
                     $('.letter').removeClass('selected');

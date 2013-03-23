@@ -14,7 +14,7 @@
             display:inline-block;
         }
 
-        .wordPart {
+        .wordPart,.syl {
             border: black 1px solid;
             background-color: #ffebcd;
             text-align: center;
@@ -22,7 +22,7 @@
             margin: 20px;
         }
 
-        #word {
+        #word,.syl {
             display:inline-block;
         }
 
@@ -53,17 +53,47 @@
     </style>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.js"></script>
     <script>
+        function toggleSelection(obj) {
+            $(obj).toggleClass('normal');
+            $(obj).toggleClass('selected');
+        }
+
         $('.normal').ready(function () {
             $('.letter').click(function () {
-                $(this).toggleClass('normal');
-                $(this).toggleClass('selected');
-                if ($(this).hasClass('selected') && ($(this).prev().hasClass('selected'))) {
+                toggleSelection(this);
+
+                var isPrevSelected = $(this).prev().hasClass('selected');
+                var isNextSelected = $(this).next().hasClass('selected');
+
+                var clickedLetter = $(this).index();
+                var curSyl = $(this).parent();
+
+                if ($(this).hasClass('selected') && (isPrevSelected || isNextSelected)) {
                     word = $('#wordDisplay');
-                    newDiv = "<div class='wordPart'></div>";
-                    newDiv = $(newDiv);
-                    newDiv.append($(this).prevAll().get().reverse());
-                    word.prepend(newDiv);
-                    //word.append($(this).prevAll());
+
+                    var lSyl = $("<div class='wordPart syl'></div>");
+                    var rSyl = $("<div class='wordPart syl'></div>");
+
+                    if (isPrevSelected) {
+                        left = $(this).prevAll();
+                        left.detach();
+
+                        //$(this).detach();
+
+                        //right = $(this).nextAll();
+                        //right.detach();
+
+                        lSyl.append(left.get().reverse());
+
+                        //rSyl.append($(this));
+                        //rSyl.append(right)
+
+                        curSyl.before(lSyl);
+                        //curSyl.before(rSyl);
+                    }
+                    //console.log($('.letter'));
+                    $('.letter').removeClass('selected');
+                    $('.letter').addClass('normal');
                 }
             });
         });
@@ -75,7 +105,7 @@
     </h2>
 
     <div id="wordDisplay" class="container">
-        <div id="word" class="wordPart">
+        <div id="word" class="syl">
             <span id="letter1" class="letter normal">p</span><span id="letter2" class="letter normal">i</span><span id="letter3" class="letter normal">s</span><span id="letter4" class="letter normal">s</span><span id="letter5" class="letter normal">u</span><span id="letter6" class="letter normal">q</span><span id="letter7" class="letter normal">a</span><span id="letter8" class="letter normal">t</span><span id="letter9" class="letter normal">a</span><span id="letter10" class="letter normal">l</span><span id="letter11" class="letter normal">l</span><span id="letter12" class="letter normal">i</span><span id="letter13" class="letter normal">n</span><span id="letter14" class="letter normal">i</span><span id="letter15" class="letter normal">l</span><span id="letter16" class="letter normal">u</span><span id="letter17" class="letter normal">n</span><span id="letter18" class="letter normal">i</span>
         </div>
     </div>

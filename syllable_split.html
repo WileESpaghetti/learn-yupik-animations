@@ -58,41 +58,44 @@
             $(obj).toggleClass('selected');
         }
 
+        /* Reset all of the letters to a default state before breaking another syllable */
+        function resetLetters() {
+            $('.letter').removeClass('selected');
+            $('.letter').addClass('normal');
+        }
+
+        function getLeftSyl(obj, addObj) {
+            var lSyl = $("<div class='wordPart syl'></div>");
+
+            left = $(obj).prevAll();
+            left.detach();
+
+            // prevAll adds letters right to left instead of the way the letters will be read
+            left = left.get().reverse();
+
+            /* the current selected letter will need to get added to the left syllable if the letter on its right
+             * was selected first. This is because prevAll() does not include it. */
+            if (addObj) {
+                $(obj).detach();
+                left.push(obj);
+            }
+
+            lSyl.append(left);
+
+            return lSyl;
+        }
+
         $('.normal').ready(function () {
             $('.letter').click(function () {
-                toggleSelection(this);
-
+                /* this splits the syllables */
+                var curSyl = $(this).parent();
                 var isPrevSelected = $(this).prev().hasClass('selected');
                 var isNextSelected = $(this).next().hasClass('selected');
 
-                var clickedLetter = $(this).index();
-                var curSyl = $(this).parent();
-
+                toggleSelection(this);
                 if ($(this).hasClass('selected') && (isPrevSelected || isNextSelected)) {
-                    word = $('#wordDisplay');
-
-                    var lSyl = $("<div class='wordPart syl'></div>");
-                    var rSyl = $("<div class='wordPart syl'></div>");
-
-                    if (isPrevSelected) {
-                        left = $(this).prevAll();
-                        left.detach();
-                        lSyl.append(left.get().reverse());
-                        curSyl.before(lSyl);
-                    } else if (isNextSelected) {
-                        left = $(this).prevAll();
-                        left.detach();
-                        $(this).detach();
-
-                        left = left.get().reverse();
-                        console.log(left);
-                        left.push(this);
-                        lSyl.append(left);
-                        curSyl.before(lSyl);
-                    }
-                    //console.log($('.letter'));
-                    $('.letter').removeClass('selected');
-                    $('.letter').addClass('normal');
+                    curSyl.before(getLeftSyl(this, isNextSelected));
+                    resetLetters();
                 }
             });
         });

@@ -85,10 +85,61 @@
             return lSyl;
         }
 
-        $('.normal').ready(function () {
+        function testSyls(json) {
+            correct = json['syllables'].split('/');
+            current = [];
+            var isGood = true;
+            console.log();
+            a = $('.syl').each(function(){current.push($(this).text().trim())});
+
+            for (i = 0; i < current.length; i++) {
+                if (current[i] != correct[i].trim()) {
+                    isGood = false;
+                    break;
+                }
+            }
+
+            if (isGood) {
+                $('body').css('background-color', 'green');
+            }
+
+            console.log(current);
+            console.log(correct);
+        }
+
+        $(window).ready(function() {
+            var py = '/word_info/' + 'pissuqatalliniluni';
+            console.log('backopn');
+            $.getJSON('pyproxy.php?py=' + py, function(json) {
+                console.log(json);
+                for (i = 0; i < json['spelling'].length; i++) {
+                    letterID = 'letter' + (i+1);
+                    letterSpan = $('<span id="' + letterID + '">' + json['spelling'][i] + '</span>');
+                    letterSpan.addClass('letter');
+                    letterSpan.addClass('normal');
+                    $('#word').append(letterSpan);
+                }
+
+                $('.letter').click(function () {
+                    /* this splits the syllables */
+                    var curSyl = $(this).parent();
+                    var isPrevSelected = $(this).prev().hasClass('selected');
+                    var isNextSelected = $(this).next().hasClass('selected');
+
+                    toggleSelection(this);
+                    if ($(this).hasClass('selected') && (isPrevSelected || isNextSelected)) {
+                        curSyl.before(getLeftSyl(this, isNextSelected));
+                        resetLetters();
+                        testSyls(json);
+                    }
+                });
+            });
+        });
+
+        /*$('.normal').ready(function () {
             $('.letter').click(function () {
                 /* this splits the syllables */
-                var curSyl = $(this).parent();
+                /*var curSyl = $(this).parent();
                 var isPrevSelected = $(this).prev().hasClass('selected');
                 var isNextSelected = $(this).next().hasClass('selected');
 
@@ -98,7 +149,7 @@
                     resetLetters();
                 }
             });
-        });
+        });*/
     </script>
 </head>
 <body>
@@ -108,7 +159,7 @@
 
     <div id="wordDisplay" class="container">
         <div id="word" class="syl">
-            <span id="letter1" class="letter normal">p</span><span id="letter2" class="letter normal">i</span><span id="letter3" class="letter normal">s</span><span id="letter4" class="letter normal">s</span><span id="letter5" class="letter normal">u</span><span id="letter6" class="letter normal">q</span><span id="letter7" class="letter normal">a</span><span id="letter8" class="letter normal">t</span><span id="letter9" class="letter normal">a</span><span id="letter10" class="letter normal">l</span><span id="letter11" class="letter normal">l</span><span id="letter12" class="letter normal">i</span><span id="letter13" class="letter normal">n</span><span id="letter14" class="letter normal">i</span><span id="letter15" class="letter normal">l</span><span id="letter16" class="letter normal">u</span><span id="letter17" class="letter normal">n</span><span id="letter18" class="letter normal">i</span>
+            <!--<span id="letter1" class="letter normal">p</span><span id="letter2" class="letter normal">i</span><span id="letter3" class="letter normal">s</span><span id="letter4" class="letter normal">s</span><span id="letter5" class="letter normal">u</span><span id="letter6" class="letter normal">q</span><span id="letter7" class="letter normal">a</span><span id="letter8" class="letter normal">t</span><span id="letter9" class="letter normal">a</span><span id="letter10" class="letter normal">l</span><span id="letter11" class="letter normal">l</span><span id="letter12" class="letter normal">i</span><span id="letter13" class="letter normal">n</span><span id="letter14" class="letter normal">i</span><span id="letter15" class="letter normal">l</span><span id="letter16" class="letter normal">u</span><span id="letter17" class="letter normal">n</span><span id="letter18" class="letter normal">i</span>-->
         </div>
     </div>
 </body>
